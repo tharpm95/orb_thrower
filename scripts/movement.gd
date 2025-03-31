@@ -4,6 +4,7 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 const FALL_THRESHOLD = -100.0
 const LAUNCH_FORCE = 10.0
+const SPHERE_LIFETIME = 2.0 # Lifetime of a sphere in seconds
 
 @onready var camera = $Camera3D
 
@@ -65,22 +66,27 @@ func _input(event):
 func launch_sphere():
 	if sphere_scene:
 		var sphere_instance = sphere_scene.instantiate()
-		add_child(sphere_instance)
+		get_tree().root.add_child(sphere_instance)
 
-		# Position the sphere slightly in front of the camera, in the direction the camera is facing
-		var start_position = camera.global_transform.origin - camera.basis.z * 2  # Adjusted to move forward in the camera's view
+		var start_position = camera.global_transform.origin - camera.basis.z * 2
 		sphere_instance.global_transform.origin = start_position
-		print("Sphere initialized at: ", sphere_instance.global_transform.origin)
 
-		# Hardcoded impulse direction
-		var hardcoded_direction = Vector3(1, 0, 1).normalized()
-		print("Applying impulse: ", hardcoded_direction)
-
-		# Apply force to the sphere in this hardcoded direction
-		var sphere_rigidbody = sphere_instance as RigidBody3D
+		var sphere_rigidbody = sphere_instance.get_node("RigidBody3D") if sphere_instance else null
 		if sphere_rigidbody:
-			sphere_rigidbody.apply_central_impulse(hardcoded_direction * LAUNCH_FORCE)
-			print("Sphere velocity after impulse: ", sphere_rigidbody.linear_velocity)
+			var camera_forward = -camera.basis.z.normalized()
+			sphere_rigidbody.apply_impulse(camera_forward * LAUNCH_FORCE)
+
+			# Start a timer to remove the sphere after its lifetime
+			var sphere_timer = Timer.new()
+			sphere_timer.one_shot = true
+			sphere_timer.wait_time = SPHERE_LIFETIME
+			sphere_instance.add_child(sphere_timer)
+			sphere_timer.start()
+
+			# Connect the timeout to remove the sphere
+			sphere_timer.timeout.connect(func() -> void:
+				sphere_instance.queue_free()
+			)
 
 func _resurrect():
 	global_transform.origin = start_position
