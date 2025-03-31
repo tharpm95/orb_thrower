@@ -15,6 +15,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.923918, 72.5941, 0.144855)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.6646, -3.26286, 0)
 script = ExtResource("1_po0g2")
 
+[node name="HUD" type="Control" parent="CharacterBody3D"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ChargeProgressBar" type="ProgressBar" parent="CharacterBody3D/HUD"]
+layout_mode = 0
+offset_right = 4.0
+offset_bottom = 27.0
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
 shape = SubResource("CapsuleShape3D_cba7o")
 

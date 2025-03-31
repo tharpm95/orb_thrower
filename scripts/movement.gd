@@ -3,20 +3,39 @@ extends CharacterBody3D
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 const FALL_THRESHOLD = -100.0
-const LAUNCH_FORCE = 10.0
+const BASE_LAUNCH_FORCE = 5.0
+const MAX_LAUNCH_FORCE = 50.0
 const SPHERE_LIFETIME = 2.0 # Lifetime of a sphere in seconds
+const MAX_CHARGE_TIME = 2.0 # Time in seconds to reach full charge
 
 @onready var camera = $Camera3D
+@onready var charge_bar = $HUD/ChargeProgressBar
 
 var start_position: Vector3
 var log_timer: float = 0.0 # Timer for logging
 var log_interval: float = 1.0 # Interval to log character position
+var charge_time: float = 0.0 # Time the left mouse button is held
 
 # Load sphere mesh scene
 @export var sphere_scene: PackedScene = preload("res://scenes/orb.tscn")
 
 func _ready():
 	start_position = global_transform.origin
+	charge_bar.visible = false  # Start with the charge bar hidden
+	charge_bar.value = 0.0
+
+	# Create a StyleBoxFlat for customizing the background
+	var style_bg = StyleBoxFlat.new()
+	style_bg.bg_color = Color(0, 0, 0, 0.5)  # Semi-transparent black background
+
+	# Apply the style box for the background
+	charge_bar.add_theme_stylebox_override("background", style_bg)
+
+	# Create and apply a StyleBoxFlat for the foreground (fill)
+	var style_fg = StyleBoxFlat.new()
+	style_fg.bg_color = Color(0.5, 0, 0.5, 1)  # Purple for the foreground/fill
+
+	charge_bar.add_theme_stylebox_override("fg", style_fg)
 
 func _physics_process(delta: float) -> void:
 	# Update the timer
@@ -58,9 +77,18 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
+func _process(delta: float):
+	if Input.is_action_pressed("LM"):
+		charge_time += delta
+		charge_bar.visible = true
+		charge_bar.value = min(charge_time / MAX_CHARGE_TIME, 1.0) * 100
+	else:
+		charge_time = 0.0
+		charge_bar.visible = false
+		charge_bar.value = 0.0
+
 func _input(event):
-	if event.is_action_pressed("LM"):
-		print("Left mouse pressed: Launching sphere")  # Debugging print
+	if event.is_action_released("LM"):
 		launch_sphere()
 
 func launch_sphere():
@@ -74,7 +102,8 @@ func launch_sphere():
 		var sphere_rigidbody = sphere_instance.get_node("RigidBody3D") if sphere_instance else null
 		if sphere_rigidbody:
 			var camera_forward = -camera.basis.z.normalized()
-			sphere_rigidbody.apply_impulse(camera_forward * LAUNCH_FORCE)
+			var launch_force = BASE_LAUNCH_FORCE + (charge_time / MAX_CHARGE_TIME) * (MAX_LAUNCH_FORCE - BASE_LAUNCH_FORCE)
+			sphere_rigidbody.apply_impulse(camera_forward * launch_force)
 
 			# Start a timer to remove the sphere after its lifetime
 			var sphere_timer = Timer.new()
