@@ -3,7 +3,7 @@ extends CharacterBody3D
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 const FALL_THRESHOLD = -100.0
-const LAUNCH_FORCE = 20.0
+const LAUNCH_FORCE = 10.0
 
 @onready var camera = $Camera3D
 
@@ -12,7 +12,7 @@ var log_timer: float = 0.0 # Timer for logging
 var log_interval: float = 1.0 # Interval to log character position
 
 # Load sphere mesh scene
-@export var sphere_scene: PackedScene = preload("res://scenes/orb.tscn") 
+@export var sphere_scene: PackedScene = preload("res://scenes/orb.tscn")
 
 func _ready():
 	start_position = global_transform.origin
@@ -66,17 +66,21 @@ func launch_sphere():
 	if sphere_scene:
 		var sphere_instance = sphere_scene.instantiate()
 		add_child(sphere_instance)
-		
-		# Position the sphere at the camera's position
-		sphere_instance.global_transform.origin = camera.global_transform.origin
-		
-		# Get the direction the camera is facing
-		var launch_direction = -camera.basis.z.normalized()
-		
-		# Apply force to the sphere in the direction the camera is facing
+
+		# Position the sphere slightly in front of the camera, in the direction the camera is facing
+		var start_position = camera.global_transform.origin - camera.basis.z * 2  # Adjusted to move forward in the camera's view
+		sphere_instance.global_transform.origin = start_position
+		print("Sphere initialized at: ", sphere_instance.global_transform.origin)
+
+		# Hardcoded impulse direction
+		var hardcoded_direction = Vector3(1, 0, 1).normalized()
+		print("Applying impulse: ", hardcoded_direction)
+
+		# Apply force to the sphere in this hardcoded direction
 		var sphere_rigidbody = sphere_instance as RigidBody3D
 		if sphere_rigidbody:
-			sphere_rigidbody.apply_central_impulse(launch_direction * LAUNCH_FORCE)
+			sphere_rigidbody.apply_central_impulse(hardcoded_direction * LAUNCH_FORCE)
+			print("Sphere velocity after impulse: ", sphere_rigidbody.linear_velocity)
 
 func _resurrect():
 	global_transform.origin = start_position
