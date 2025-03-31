@@ -22,8 +22,5 @@ shape = SubResource("CapsuleShape3D_cba7o")
 transform = Transform3D(0.0379692, 0, -0.999279, 0, 1, 0, 0.999279, 0, 0.0379692, 0.160954, 0, 0.26498)
 script = ExtResource("2_d2paj")
 
-[node name="RayCast3D" type="RayCast3D" parent="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.50538, 0.144985, -0.694555)
-
 [node name="library" parent="." instance=ExtResource("3_jj8qn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.53586, -5.38171, -0.870485)
