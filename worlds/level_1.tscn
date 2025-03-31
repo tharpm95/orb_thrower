@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://ceutfn0uvpbgp"]
+
+[ext_resource type="Script" path="res://scripts/movement.gd" id="1_po0g2"]
+[ext_resource type="Script" path="res://scripts/camera_3d.gd" id="2_d2paj"]
+[ext_resource type="PackedScene" uid="uid://bjfkmwkicqyh8" path="res://scenes/library_central_hall.tscn" id="3_jj8qn"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cba7o"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.923918, 72.5941, 0.144855)
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.6646, -3.26286, 0)
+script = ExtResource("1_po0g2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_cba7o")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(0.0379692, 0, -0.999279, 0, 1, 0, 0.999279, 0, 0.0379692, 0.160954, 0, 0.26498)
+script = ExtResource("2_d2paj")
+
+[node name="RayCast3D" type="RayCast3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.50538, 0.144985, -0.694555)
+
+[node name="library" parent="." instance=ExtResource("3_jj8qn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.53586, -5.38171, -0.870485)

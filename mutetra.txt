@@ -1,0 +1,21 @@
+**Game Title: Mutetra**
+
+**Premise:**
+In the vaporwave universe of Mutetra, players journey through surreal levels where existence itself is highly abstract and deconstructed. Here, the concept of self and reality is woven from "bits," the currency of this realm. As you traverse this world, your goal is to accumulate bits to enhance individuation, differentiating your essence in a universe where form and meaning constantly shift.
+
+**Gameplay:**
+Mutetra is a first-person exploration game, but instead of combat, the focus is on introspection and existential interaction. Players navigate through dreamlike landscapes filled with surreal environments and enigmatic visuals, each level presenting a unique aspect of existence to confront.
+
+- Collect bits to unlock and choose upgrades at each level, enhancing your unique traits and abilities.
+- Customization is key; each choice deepens your individuality among the nebulous aspects of the vaporwave cosmos.
+- Combat centers around using everyday objects as weapons to engage in battles against floating inanimate objects that represent existential concepts. These objects have special powers, and defeating them is essential to accumulating "bits," which are crucial for your individuation and evolution throughout the game.
+- Players engage in combat with various floating inanimate objects, each representing a different aspect of existence with its own abilities and behaviors.
+- The combat involves direct engagements, where strategy and timing play key roles in defeating your opponents.
+- Players use everyday objects as weapons, giving a grounded feel to the surreal ambiance of the game.
+- Description: Your starting weapon is a "Shadeless Lamp," an object that is both familiar and versatile.
+- The Shadeless Lamp emits beams of light that can be focused to neutralize or destabilize the existential objects you encounter.
+- As players defeat enemies and collect bits, they unlock upgrades and new real-world objects that serve as more advanced weapons.
+- The progression system emphasizes grinding and gradually enhancing your character's abilities and arsenal.
+- As you earn more bits, you can modify these everyday objects with additional traits or imbue them with new powers, tailoring your combat style to your preferences and the challenges ahead.
+
+Mutetra's combat system, while rooted in the mundane, turns everyday objects into potent tools against the abstract enemies that populate this vaporwave world. 
