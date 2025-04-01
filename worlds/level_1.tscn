@@ -18,6 +18,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.923918, 72.5941, 0.144855)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.6646, -3.26286, 0)
 script = ExtResource("1_po0g2")
 
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(-0.0391377, 0, 0.999234, 0, 1, 0, -0.999234, 0, -0.0391377, 0.160954, 0, 0.26498)
+script = ExtResource("2_d2paj")
+
 [node name="HUD" type="Control" parent="CharacterBody3D"]
 layout_mode = 3
 anchors_preset = 0
@@ -36,10 +40,6 @@ offset_bottom = 23.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
 shape = SubResource("CapsuleShape3D_cba7o")
-
-[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
-transform = Transform3D(-0.0391377, 0, 0.999234, 0, 1, 0, -0.999234, 0, -0.0391377, 0.160954, 0, 0.26498)
-script = ExtResource("2_d2paj")
 
 [node name="LibraryCentralHall" parent="." instance=ExtResource("3_jj8qn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.53586, -5.38171, -0.870485)

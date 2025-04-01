@@ -50,8 +50,6 @@ func _physics_process(delta: float) -> void:
 	# Update the log timer
 	log_timer += delta
 	if log_timer >= log_interval:
-		print("Character position: ", global_transform.origin)
-		print("Camera direction: ", camera.basis.z.normalized()) # Log the camera direction
 		log_timer = 0.0 # Reset the timer
 
 	# Check if the character has fallen below the threshold

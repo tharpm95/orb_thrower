@@ -63,3 +63,22 @@ surface_material_override/0 = SubResource("StandardMaterial3D_p0kfk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("SphereShape3D_28xq2")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Control"]
+layout_mode = 0
+offset_right = 61.0
+offset_bottom = 54.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer2"]
+layout_mode = 2
+text = "Fire Bra"
+
+[node name="ProgressBar" type="ProgressBar" parent="Control/VBoxContainer2"]
+layout_mode = 2
+value = 100.0
