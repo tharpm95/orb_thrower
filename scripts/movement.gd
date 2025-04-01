@@ -10,50 +10,63 @@ const MAX_CHARGE_TIME = 2.0 # Time in seconds to reach full charge
 
 @onready var camera = $Camera3D
 @onready var charge_bar = $HUD/ChargeProgressBar
+@onready var qubits_label = $HUD/QubitsLabel
 
 var start_position: Vector3
 var log_timer: float = 0.0 # Timer for logging
 var log_interval: float = 1.0 # Interval to log character position
 var charge_time: float = 0.0 # Time the left mouse button is held
+var qubits_count: int = 0 # Initialize the qubits counter
 
 # Load sphere mesh scene
 @export var sphere_scene: PackedScene = preload("res://scenes/items/orb.tscn")
 
 func _ready():
 	start_position = global_transform.origin
-	charge_bar.visible = true  # Start with the charge bar hidden
+	charge_bar.visible = true # Initially show the charge bar
 	charge_bar.value = 100.0
 
 	# Create a StyleBoxFlat for customizing the background
 	var style_bg = StyleBoxFlat.new()
-	style_bg.bg_color = Color(0, 0, 0, 0.5)  # Semi-transparent black background
+	style_bg.bg_color = Color(0, 0, 0, 0.5) # Semi-transparent black background
 
 	# Apply the style box for the background
 	charge_bar.add_theme_stylebox_override("background", style_bg)
 
 	# Create and apply a StyleBoxFlat for the foreground (fill)
 	var style_fg = StyleBoxFlat.new()
-	style_fg.bg_color = Color(0.5, 0, 0.5, 1)  # Purple for the foreground/fill
+	style_fg.bg_color = Color(0.5, 0, 0.5, 1) # Purple for the foreground/fill
 
 	charge_bar.add_theme_stylebox_override("fg", style_fg)
 
+	# Initialize qubits count display
+	update_qubits_count()
+
+func update_qubits_count():
+	# Updates the visible qubits count on the HUD
+	qubits_label.text = "Qubits: %d" % qubits_count
+
 func _physics_process(delta: float) -> void:
-	# Update the timer
+	# Update the log timer
 	log_timer += delta
 	if log_timer >= log_interval:
 		print("Character position: ", global_transform.origin)
-		print("Camera direction: ", camera.basis.z.normalized()) # Log camera direction
+		print("Camera direction: ", camera.basis.z.normalized()) # Log the camera direction
 		log_timer = 0.0 # Reset the timer
 
+	# Check if the character has fallen below the threshold
 	if global_transform.origin.y < FALL_THRESHOLD:
 		_resurrect()
 
+	# Apply gravity if not on the floor
 	if not is_on_floor():
 		velocity.y += get_gravity().y * delta
 
+	# Jump if space is pressed and on floor
 	if Input.is_action_just_pressed("Space") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
+	# Calculate input direction
 	var input_dir = Vector3.ZERO
 
 	if Input.is_action_pressed("W"):
@@ -72,12 +85,15 @@ func _physics_process(delta: float) -> void:
 	var direction = (camera_basis.x * input_dir.x) + (camera_basis.z * input_dir.z)
 	direction = direction.normalized()
 	
+	# Set velocity
 	velocity.x = direction.x * SPEED
 	velocity.z = direction.z * SPEED
 
+	# Move the character
 	move_and_slide()
 
 func _process(delta: float):
+	# Update charge bar based on left mouse button press
 	if Input.is_action_pressed("LM"):
 		charge_time += delta
 		charge_bar.visible = true
@@ -88,35 +104,46 @@ func _process(delta: float):
 		charge_bar.value = 0.0
 
 func _input(event):
+	# Launch sphere upon releasing the left mouse button
 	if event.is_action_released("LM"):
 		launch_sphere()
 
 func launch_sphere():
+	# Instantiate and launch a sphere
 	if sphere_scene:
 		var sphere_instance = sphere_scene.instantiate()
 		get_tree().root.add_child(sphere_instance)
 
+		# Positioning the sphere
 		var start_position = camera.global_transform.origin - camera.basis.z * 2
 		sphere_instance.global_transform.origin = start_position
 
+		# Apply impulse to the sphere
 		var sphere_rigidbody = sphere_instance.get_node("RigidBody3D") if sphere_instance else null
 		if sphere_rigidbody:
 			var camera_forward = -camera.basis.z.normalized()
 			var launch_force = BASE_LAUNCH_FORCE + (charge_time / MAX_CHARGE_TIME) * (MAX_LAUNCH_FORCE - BASE_LAUNCH_FORCE)
 			sphere_rigidbody.apply_impulse(camera_forward * launch_force)
 
-			# Start a timer to remove the sphere after its lifetime
+			# Set timer to remove the sphere after its lifetime
 			var sphere_timer = Timer.new()
 			sphere_timer.one_shot = true
 			sphere_timer.wait_time = SPHERE_LIFETIME
 			sphere_instance.add_child(sphere_timer)
 			sphere_timer.start()
 
-			# Connect the timeout to remove the sphere
+			# Connect timeout signal to remove the sphere
 			sphere_timer.timeout.connect(func() -> void:
 				sphere_instance.queue_free()
+				increase_qubits_count()
 			)
 
+func increase_qubits_count():
+	# Increase qubits count and update display
+	qubits_count += 1
+	update_qubits_count()
+
 func _resurrect():
+	# Reset position and velocity after fall
 	global_transform.origin = start_position
 	velocity = Vector3.ZERO

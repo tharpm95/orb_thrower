@@ -12,6 +12,8 @@
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.923918, 72.5941, 0.144855)
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.6646, -3.26286, 0)
 script = ExtResource("1_po0g2")
@@ -26,6 +28,11 @@ offset_bottom = 40.0
 layout_mode = 0
 offset_right = 525.0
 offset_bottom = 81.0
+
+[node name="QubitsLabel" type="Label" parent="CharacterBody3D/HUD"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
 shape = SubResource("CapsuleShape3D_cba7o")
