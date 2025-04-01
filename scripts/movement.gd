@@ -17,12 +17,12 @@ var log_interval: float = 1.0 # Interval to log character position
 var charge_time: float = 0.0 # Time the left mouse button is held
 
 # Load sphere mesh scene
-@export var sphere_scene: PackedScene = preload("res://scenes/orb.tscn")
+@export var sphere_scene: PackedScene = preload("res://scenes/items/orb.tscn")
 
 func _ready():
 	start_position = global_transform.origin
-	charge_bar.visible = false  # Start with the charge bar hidden
-	charge_bar.value = 0.0
+	charge_bar.visible = true  # Start with the charge bar hidden
+	charge_bar.value = 100.0
 
 	# Create a StyleBoxFlat for customizing the background
 	var style_bg = StyleBoxFlat.new()

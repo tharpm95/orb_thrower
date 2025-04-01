@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://ceutfn0uvpbgp"]
+[gd_scene load_steps=6 format=3 uid="uid://ceutfn0uvpbgp"]
 
 [ext_resource type="Script" path="res://scripts/movement.gd" id="1_po0g2"]
 [ext_resource type="Script" path="res://scripts/camera_3d.gd" id="2_d2paj"]
-[ext_resource type="PackedScene" uid="uid://bjfkmwkicqyh8" path="res://scenes/library_central_hall.tscn" id="3_jj8qn"]
+[ext_resource type="PackedScene" uid="uid://bjfkmwkicqyh8" path="res://scenes/rooms/library_central_hall.tscn" id="3_jj8qn"]
+[ext_resource type="Script" path="res://scripts/library_central_hall.gd" id="4_ooq3b"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cba7o"]
 
@@ -23,8 +24,8 @@ offset_bottom = 40.0
 
 [node name="ChargeProgressBar" type="ProgressBar" parent="CharacterBody3D/HUD"]
 layout_mode = 0
-offset_right = 4.0
-offset_bottom = 27.0
+offset_right = 525.0
+offset_bottom = 81.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
 shape = SubResource("CapsuleShape3D_cba7o")
@@ -35,3 +36,4 @@ script = ExtResource("2_d2paj")
 
 [node name="LibraryCentralHall" parent="." instance=ExtResource("3_jj8qn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.53586, -5.38171, -0.870485)
+script = ExtResource("4_ooq3b")
