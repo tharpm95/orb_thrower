@@ -2,12 +2,28 @@
 
 [ext_resource type="Texture2D" uid="uid://bcp8g0ca58anx" path="res://textures/001.png" id="1_bha5c"]
 
-[sub_resource type="Animation" id="Animation_rfhsu"]
+[sub_resource type="Animation" id="Animation_knfxp"]
+resource_name = "oscillate"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StaticBody3D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.8, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_s8m6r"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
+tracks/0/path = NodePath("StaticBody3D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -17,26 +33,10 @@ tracks/0/keys = {
 "values": [Vector3(0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_wadd6"]
-resource_name = "oscillate"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.533333, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 1.1, 0), Vector3(0, 0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_boihh"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3512d"]
 _data = {
-"RESET": SubResource("Animation_rfhsu"),
-"oscillate": SubResource("Animation_wadd6")
+"RESET": SubResource("Animation_s8m6r"),
+"oscillate": SubResource("Animation_knfxp")
 }
 
 [sub_resource type="PrismMesh" id="PrismMesh_xi21w"]
@@ -51,8 +51,9 @@ albedo_texture = ExtResource("1_bha5c")
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="StaticBody3D"]
+root_node = NodePath("../..")
 libraries = {
-"": SubResource("AnimationLibrary_boihh")
+"": SubResource("AnimationLibrary_3512d")
 }
 autoplay = "oscillate"
 
