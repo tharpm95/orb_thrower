@@ -18,7 +18,7 @@ extends Node3D
 
 # Define fixed spawn positions
 var spawn_positions: Array = [
-	Vector3(10, -3, 10),
+	Vector3(10, -4, 10),
 	#Vector3(-10, -3, -10),
 	#Vector3(15, -3, -15),
 	#Vector3(-15, -3, 15),
@@ -73,12 +73,26 @@ func spawn_cubes_with_delay() -> void:
 		await get_tree().create_timer(spawn_delay).timeout
 
 # Update UI position every frame
+@onready var character = get_node("/root/Node3D/CharacterBody3D")  # Adjust the path as necessary
+@export var max_display_distance = 15.0  # Maximum distance to display the label
+
 func _process(delta: float) -> void:
 	for pair in cube_ui_pairs:
 		var cube = pair['cube']
 		var ui_instance = pair['ui']
 		if camera and cube and ui_instance:
-			var screen_position = camera.unproject_position(cube.global_position + Vector3(0, 2.5, 0))
-			
-			if ui_instance is Control:
-				ui_instance.position = screen_position
+			# Get the character's global position
+			var character_position = character.global_position
+
+			# Calculate distance between the character and the cube
+			var distance_to_character = character_position.distance_to(cube.global_position)
+
+			# Only update position if within distance
+			if distance_to_character < max_display_distance:
+				var screen_position = camera.unproject_position(cube.global_position + Vector3(0, 2.5, 0))
+				if ui_instance is Control:
+					ui_instance.visible = true
+					ui_instance.position = screen_position
+			else:
+				if ui_instance is Control:
+					ui_instance.visible = false
