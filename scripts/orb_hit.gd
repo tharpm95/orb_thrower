@@ -7,5 +7,5 @@ func _ready():
 
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("beings"):
-		emit_signal("sphere_hit")
+		emit_signal("sphere_hit", body, self)  # Pass the being instance and the sphere instance
 		queue_free()

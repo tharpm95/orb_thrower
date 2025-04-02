@@ -138,11 +138,30 @@ func launch_sphere():
 				sphere_instance.queue_free()
 			)
 
-func _on_sphere_hit(sphere_instance):
+# In movement.gd
+
+func _on_sphere_hit(being_instance, sphere_instance, _other):
 	print("Being information acquired")
 	increase_qubits_count()
+
+	if being_instance:
+		var progress_bar = being_instance.get_node("Control/VBoxContainer2/ProgressBar")
+		if progress_bar:
+			progress_bar.value = max(progress_bar.value - 10, 0)  # Adjust the decrement as necessary
+		else:
+			print("ProgressBar not found for the being_instance")
+
 	if sphere_instance:
 		sphere_instance.queue_free()
+
+# Helper function to print node hierarchy
+func print_hierarchy(node: Node, level: int = 0) -> void:
+	var indent = ""
+	for i in range(level):
+		indent += "\t"
+	print(indent + node.name)
+	for child in node.get_children():
+		print_hierarchy(child, level + 1)
 
 func increase_qubits_count():
 	# Increase qubits count and update display
