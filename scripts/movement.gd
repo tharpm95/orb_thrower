@@ -139,7 +139,7 @@ func launch_sphere():
 			)
 
 func _on_sphere_hit():
-	print("sphere_hit")
+	print("Being information acquired")
 	increase_qubits_count()
 
 func increase_qubits_count():

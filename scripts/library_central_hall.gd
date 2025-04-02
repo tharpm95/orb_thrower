@@ -38,7 +38,7 @@ func spawn_beings_with_delay() -> void:
 			control_node.visible = false
 		
 		# Connect the sphere_hit signal from each being to the _on_sphere_hit callback which should be in this script
-		being_instance.connect("sphere_hit", Callable(character, "_on_sphere_hit"))
+		#being_instance.connect("sphere_hit", Callable(character, "_on_sphere_hit"))
 
 @onready var character = get_node("/root/Node3D/CharacterBody3D") # Adjust the path as necessary
 @export var max_display_distance = 25.0 # Maximum distance to display the label
@@ -50,15 +50,11 @@ func _process(_delta: float) -> void:
 			var character_position = character.global_position
 			var distance_to_character = character_position.distance_to(being_instance.global_position)
 
-			# Commenting the global position of the being instance and its index
-			print("Distance to being: ", distance_to_character, " Being index: ", i)
-
 			var control_node: Control = being_instance.get_node("Control")
 			if distance_to_character < max_display_distance:
 				# Check if the position is behind the camera
 				if not camera.is_position_behind(being_instance.global_position + Vector3(0, 2.5, 0)):
 					var screen_position = camera.unproject_position(being_instance.global_position + Vector3(0, 2.5, 0))
-					print("Screen position: ", screen_position)
 					control_node.position = screen_position
 					control_node.visible = true
 				else:

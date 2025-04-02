@@ -4,8 +4,8 @@
 [ext_resource type="Script" path="res://scripts/being.gd" id="1_btimo"]
 [ext_resource type="Script" path="res://scripts/orb_hit.gd" id="1_y2omx"]
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_vj270"]
-data = PackedVector3Array(0, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0, 0.5, 0.5, 0, 0.5, -0.5, 0.5, -0.5, 0.5, 0, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0, 0.5, -0.5, 0, 0.5, 0.5, -0.5, -0.5, -0.5, 0, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_b0o6u"]
+points = PackedVector3Array(0, 0.5, 0.5, 0.5, -0.5, 0.5, 0, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
 [sub_resource type="Animation" id="Animation_s8m6r"]
 length = 0.001
@@ -56,8 +56,8 @@ collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_btimo")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_vj270")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_b0o6u")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="StaticBody3D"]
 root_node = NodePath("../..")
@@ -74,8 +74,8 @@ surface_material_override/0 = SubResource("StandardMaterial3D_p0kfk")
 [node name="Area3D" type="Area3D" parent="StaticBody3D/MeshInstance3D"]
 script = ExtResource("1_y2omx")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D/MeshInstance3D/Area3D"]
-shape = SubResource("ConcavePolygonShape3D_vj270")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/MeshInstance3D/Area3D"]
+shape = SubResource("ConvexPolygonShape3D_b0o6u")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3

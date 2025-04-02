@@ -34,7 +34,3 @@ transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 mesh = SubResource("SphereMesh_btahu")
 skeleton = NodePath("../../RigidBody3D")
 surface_material_override/0 = SubResource("StandardMaterial3D_p0kfk")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
-shape = SubResource("SphereShape3D_28xq2")

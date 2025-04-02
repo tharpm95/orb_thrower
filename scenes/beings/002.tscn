@@ -1,7 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://b6i35w4tigk6e"]
+[gd_scene load_steps=10 format=3 uid="uid://b6i35w4tigk6e"]
 
 [ext_resource type="Script" path="res://scripts/being.gd" id="1_ac54c"]
 [ext_resource type="Texture2D" uid="uid://df3axfkp3l8c4" path="res://textures/003.png" id="1_o5hmc"]
+[ext_resource type="Script" path="res://scripts/orb_hit.gd" id="3_sen3y"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_263sf"]
+points = PackedVector3Array(0, 0.5, 0.5, 0.5, -0.5, 0.5, 0, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
 [sub_resource type="Animation" id="Animation_rckxj"]
 length = 0.001
@@ -45,12 +49,14 @@ _data = {
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p0kfk"]
 albedo_texture = ExtResource("1_o5hmc")
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_28xq2"]
-
 [node name="Node3D" type="Node3D"]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 script = ExtResource("1_ac54c")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(-0.999974, 0.00724301, 0, -0.00724301, -0.999974, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_263sf")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="StaticBody3D"]
 libraries = {
@@ -64,8 +70,12 @@ mesh = SubResource("PrismMesh_xi21w")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_p0kfk")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("SphereShape3D_28xq2")
+[node name="Area3D" type="Area3D" parent="StaticBody3D/MeshInstance3D"]
+script = ExtResource("3_sen3y")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D/MeshInstance3D/Area3D"]
+transform = Transform3D(0.999945, -0.0104891, 0, 0.0104891, 0.999945, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_263sf")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
