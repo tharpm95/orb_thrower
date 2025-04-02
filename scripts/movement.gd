@@ -113,7 +113,7 @@ func launch_sphere():
 		get_tree().root.add_child(sphere_instance)
 
 		# Positioning the sphere
-		var start_position = camera.global_transform.origin - camera.basis.z * 2
+		start_position = camera.global_transform.origin - camera.basis.z * 2
 		sphere_instance.global_transform.origin = start_position
 
 		# Apply impulse to the sphere
@@ -122,6 +122,9 @@ func launch_sphere():
 			var camera_forward = -camera.basis.z.normalized()
 			var launch_force = BASE_LAUNCH_FORCE + (charge_time / MAX_CHARGE_TIME) * (MAX_LAUNCH_FORCE - BASE_LAUNCH_FORCE)
 			sphere_rigidbody.apply_impulse(camera_forward * launch_force)
+
+			# Connect the sphere's `sphere_hit` signal to a handler
+			sphere_instance.get_node("RigidBody3D/Area3D").connect("sphere_hit", Callable(self, "_on_sphere_hit"))
 
 			# Set timer to remove the sphere after its lifetime
 			var sphere_timer = Timer.new()
@@ -133,8 +136,11 @@ func launch_sphere():
 			# Connect timeout signal to remove the sphere
 			sphere_timer.timeout.connect(func() -> void:
 				sphere_instance.queue_free()
-				increase_qubits_count()
 			)
+
+func _on_sphere_hit():
+	print("sphere_hit")
+	increase_qubits_count()
 
 func increase_qubits_count():
 	# Increase qubits count and update display

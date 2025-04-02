@@ -22,8 +22,9 @@ var being_instances = []
 func _ready() -> void:
 	randomize()
 	print("Spawning beings")
-	await spawn_beings_with_delay()
+	spawn_beings_with_delay()
 
+# In your being management script
 func spawn_beings_with_delay() -> void:
 	for pos in spawn_positions:
 		var scene_index = randi() % being_scenes.size()
@@ -35,11 +36,14 @@ func spawn_beings_with_delay() -> void:
 		if control_node:
 			being_instances.append(being_instance)
 			control_node.visible = false
+		
+		# Connect the sphere_hit signal from each being to the _on_sphere_hit callback which should be in this script
+		being_instance.connect("sphere_hit", Callable(character, "_on_sphere_hit"))
 
 @onready var character = get_node("/root/Node3D/CharacterBody3D") # Adjust the path as necessary
 @export var max_display_distance = 25.0 # Maximum distance to display the label
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	for i in range(being_instances.size()):
 		var being_instance = being_instances[i]
 		if camera and being_instance:

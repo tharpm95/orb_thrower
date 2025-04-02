@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cplblf44s6jfc"]
+[gd_scene load_steps=6 format=3 uid="uid://cplblf44s6jfc"]
 
 [ext_resource type="Texture2D" uid="uid://uwlietb8xbpm" path="res://textures/002.png" id="1_oux4f"]
+[ext_resource type="Script" path="res://scripts/orb_hit.gd" id="1_s6cab"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_btahu"]
 
@@ -12,10 +13,26 @@ albedo_texture = ExtResource("1_oux4f")
 [node name="Node3D" type="Node3D"]
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
+collision_layer = 8388608
+collision_mask = 8388608
+
+[node name="Area3D" type="Area3D" parent="RigidBody3D"]
+script = ExtResource("1_s6cab")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D/Area3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+mesh = SubResource("SphereMesh_btahu")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_p0kfk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/Area3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+shape = SubResource("SphereShape3D_28xq2")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 mesh = SubResource("SphereMesh_btahu")
+skeleton = NodePath("../../RigidBody3D")
 surface_material_override/0 = SubResource("StandardMaterial3D_p0kfk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]

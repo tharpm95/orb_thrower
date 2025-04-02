@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://b6i35w4tigk6e"]
+[gd_scene load_steps=9 format=3 uid="uid://b6i35w4tigk6e"]
 
+[ext_resource type="Script" path="res://scripts/being.gd" id="1_ac54c"]
 [ext_resource type="Texture2D" uid="uid://df3axfkp3l8c4" path="res://textures/003.png" id="1_o5hmc"]
 
 [sub_resource type="Animation" id="Animation_rckxj"]
@@ -49,6 +50,7 @@ albedo_texture = ExtResource("1_o5hmc")
 [node name="Node3D" type="Node3D"]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
+script = ExtResource("1_ac54c")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="StaticBody3D"]
 libraries = {
