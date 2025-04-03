@@ -7,7 +7,7 @@ const BASE_LAUNCH_FORCE = 5.0
 const MAX_LAUNCH_FORCE = 50.0
 const SPHERE_LIFETIME = 2.0
 const MAX_CHARGE_TIME = 2.0
-const PARTICLES_LIFETIME = 1.5
+const PARTICLES_LIFETIME = 0.5
 
 @onready var camera = $Camera3D
 @onready var charge_bar = $HUD/ChargeProgressBar
@@ -22,6 +22,8 @@ var qubits_count: int = 0
 # Load scenes
 @export var sphere_scene: PackedScene = preload("res://scenes/items/orb.tscn")
 @export var info_particles_scene: PackedScene = preload("res://scenes/effects/info_particles.tscn")
+
+signal request_respawn
 
 func _ready():
 	start_position = global_transform.origin
@@ -147,9 +149,19 @@ func trigger_info_particles(being_instance):
 	particles_timer.timeout.connect(func():
 		info_particles_instance.queue_free())
 
-	# Queue the being instance for deletion at the end
-	being_instance.queue_free()
+	# Access the Label node and print its text
+	var label_node_path = "Control/VBoxContainer2/Label"  # Adjust based on your hierarchy
+	var label_node = being_instance.get_node(label_node_path) if being_instance.has_node(label_node_path) else null
+	if label_node:
+		var label_text = label_node.text
+		print("Label text:", label_text)
+	else:
+		print("Label node not found in hierarchy.")
 
+	# Queue the being instance for deletion at the end
+	print_hierarchy(being_instance)
+	being_instance.queue_free()
+	
 func print_hierarchy(node: Node, level: int = 0) -> void:
 	var indent = ""
 	for i in range(level):

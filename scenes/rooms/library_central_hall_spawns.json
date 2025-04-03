@@ -1,0 +1,7 @@
+{
+    "10,-4,10": [{"being": "Fire Bra", "chance": 100}],
+    "-10,-4,-10": [{"being": "Fire Bra", "chance": 100}],
+    "15,-4,-15": [{"being": "Fire Bra", "chance": 70}, {"being": "Water Ket", "chance": 30}],
+    "-15,-4,15": [{"being": "Fire Bra", "chance": 70}, {"being": "Water Ket", "chance": 30}],
+    "0,-4,20": [{"being": "Water Ket", "chance": 50}]
+}
