@@ -18,6 +18,7 @@ var log_timer: float = 0.0
 var log_interval: float = 1.0
 var charge_time: float = 0.0
 var qubits_count: int = 0
+var max_display_distance = 25.0
 
 # Load scenes
 @export var sphere_scene: PackedScene = preload("res://scenes/items/orb.tscn")
@@ -148,31 +149,10 @@ func trigger_info_particles(being_instance):
 
 	particles_timer.timeout.connect(func():
 		info_particles_instance.queue_free())
-
-	# Access the Label node and print its text
-	var label_node_path = "Control/VBoxContainer2/Label"  # Adjust based on your hierarchy
-	var label_node = being_instance.get_node(label_node_path) if being_instance.has_node(label_node_path) else null
-	if label_node:
-		var label_text = label_node.text
-		print("Label text:", label_text)
-
-		if label_text == "Fire Bra" or label_text == "Water Ket":
-			# Find the closest location in chances data
-			var closest_location = find_and_print_nearest_location(being_instance.global_transform.origin)
-
-			# Define respawn times for different types
-			var respawn_times = {
-				"Fire Bra": 3,
-				"Water Ket": 4
-			}
-			
-			var respawn_time = respawn_times.get(label_text, 3) # Default to 3 seconds if not found
-			schedule_respawn(label_text, closest_location, respawn_time)
-	else:
-		print("Label node not found in hierarchy.")
-
-	# Queue the being instance for deletion at the end
-	print_hierarchy(being_instance)
+	
+	var dialog = Dialogic.start("res://scenes/dialog/positron_01/timeline.dtl")
+	add_child(dialog)
+	
 	being_instance.queue_free()
 
 func find_and_print_nearest_location(position: Vector3) -> Vector3:
@@ -192,33 +172,6 @@ func find_and_print_nearest_location(position: Vector3) -> Vector3:
 
 	print("Closest location:", closest_position)
 	return closest_position
-
-func schedule_respawn(being_type: String, position: Vector3, timeout: float):
-	var respawn_timer = Timer.new()
-	respawn_timer.one_shot = true
-	respawn_timer.wait_time = timeout
-	get_tree().root.add_child(respawn_timer)
-	respawn_timer.start()
-
-	respawn_timer.timeout.connect(func():
-		respawn_being(being_type, position))
-
-func respawn_being(being_type: String, position: Vector3):
-	var being_scene: PackedScene = null
-
-	if being_type == "Fire Bra":
-		being_scene = preload("res://scenes/beings/001.tscn")
-	elif being_type == "Water Ket":
-		being_scene = preload("res://scenes/beings/002.tscn")
-
-	if being_scene:
-		var new_being_instance = being_scene.instantiate()
-		get_tree().root.add_child(new_being_instance)
-		new_being_instance.global_transform.origin = position
-		print("%s has been respawned at %s" % [being_type, position])
-	else:
-		print("Being scene for %s not found" % being_type)
-
 	
 func print_hierarchy(node: Node, level: int = 0) -> void:
 	var indent = ""

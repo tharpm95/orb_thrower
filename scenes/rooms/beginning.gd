@@ -14,11 +14,11 @@ extends Node3D
 @export var dialog_scene = preload("res://scenes/dialog/positron_01/positron_01.tscn")
 
 var spawn_chances: Dictionary = {
-	Vector3(10, -4, 10): [{"being": "Fire Bra", "chance": 100}],
-	Vector3(-10, -4, -10): [{"being": "Fire Bra", "chance": 100}],
-	Vector3(15, -4, -15): [{"being": "Fire Bra", "chance": 70}, {"being": "Water Ket", "chance": 30}],
-	Vector3(-15, -4, 15): [{"being": "Fire Bra", "chance": 70}, {"being": "Water Ket", "chance": 30}],
-	Vector3(0, -4, 20): [{"being": "Water Ket", "chance": 50}]
+	Vector3(-9, 2, -18): [{"being": "Fire Bra", "chance": 100}],
+	Vector3(5, 2, -19): [{"being": "Fire Bra", "chance": 100}],
+	Vector3(-9, 2, -33): [{"being": "Fire Bra", "chance": 70}, {"being": "Water Ket", "chance": 30}],
+	Vector3(5, 2, -42): [{"being": "Fire Bra", "chance": 70}, {"being": "Water Ket", "chance": 30}],
+	Vector3(-9, 2, -50): [{"being": "Water Ket", "chance": 50}]
 }
 
 @onready var camera = get_node("/root/Node3D/CharacterBody3D/Camera3D")
@@ -93,6 +93,7 @@ func _process(_delta: float) -> void:
 	for being_instance in being_instances:
 		if is_instance_valid(camera) and is_instance_valid(being_instance):
 			var character_position = character.global_position
+			print(character_position)
 			var distance_to_character = character_position.distance_to(being_instance.global_position)
 
 			if distance_to_character < max_display_distance:

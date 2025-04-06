@@ -1,0 +1,136 @@
+[gd_scene load_steps=8 format=3 uid="uid://d0ru1sk6bkmnt"]
+
+[ext_resource type="Shader" path="res://shaders/positron_01.gdshader" id="1_m005q"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_vgegs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nesl7"]
+render_priority = 0
+shader = ExtResource("1_m005q")
+
+[sub_resource type="Curve3D" id="Curve3D_2oaku"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0.00154776, 0.011014, -0.603621, 0, 0, 0, 0, 0, 0, 0.427499, 0.00795436, -0.427747, 0, 0, 0, 0, 0, 0, 0.600432, 0.000244617, -0.00186563, 0, 0, 0, 0, 0, 0, 0.451614, -0.00734377, 0.41112, 0, 0, 0, 0, 0, 0, 0.00528714, -0.0108919, 0.597045, 0, 0, 0, 0, 0, 0, -0.451895, -0.00766325, 0.389373, 0, 0, 0, 0, 0, 0, -0.586892, -0.000122547, -0.00458129, 0, 0, 0, 0, 0, 0, -0.392665, 0.00897503, -0.461496, 0, 0, 0, 0, 0, 0, 0.00825347, 0.0110133, -0.603492),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 9
+
+[sub_resource type="Animation" id="Animation_xfv7d"]
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Orbit4/PathFollow3D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.766667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_8jfqu"]
+resource_name = "orbit"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Orbit1/PathFollow3D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r7ebv"]
+_data = {
+"RESET": SubResource("Animation_xfv7d"),
+"orbit": SubResource("Animation_8jfqu")
+}
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Positron" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_vgegs")
+surface_material_override/0 = SubResource("ShaderMaterial_nesl7")
+
+[node name="Orbit1" type="Path3D" parent="."]
+curve = SubResource("Curve3D_2oaku")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Orbit1"]
+transform = Transform3D(-0.381637, 0.00613577, -0.924174, 0, 0.999826, 0.00663841, 0.92429, 0.00253344, -0.381589, 0.00154776, 0.011014, -0.603621)
+
+[node name="Orbit1" type="MeshInstance3D" parent="Orbit1/PathFollow3D"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_vgegs")
+surface_material_override/0 = SubResource("ShaderMaterial_nesl7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Orbit1"]
+libraries = {
+"": SubResource("AnimationLibrary_r7ebv")
+}
+autoplay = "orbit"
+
+[node name="Orbit2" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+curve = SubResource("Curve3D_2oaku")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Orbit2"]
+transform = Transform3D(-0.982948, 0.015954, 0.183126, 0.0195805, 0.999511, 0.0179989, -0.182784, 0.0212764, -0.98286, 0.585144, -0.000584028, 0.0432507)
+progress = 0.974002
+
+[node name="Orbit1" type="MeshInstance3D" parent="Orbit2/PathFollow3D"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_vgegs")
+surface_material_override/0 = SubResource("ShaderMaterial_nesl7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Orbit2"]
+root_node = NodePath("../../Orbit2")
+libraries = {
+"": SubResource("AnimationLibrary_r7ebv")
+}
+autoplay = "RESET"
+
+[node name="Orbit3" type="Path3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+curve = SubResource("Curve3D_2oaku")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Orbit3"]
+transform = Transform3D(-0.381643, 0.00613614, -0.92425, 0, 0.999886, 0.00663895, 0.924305, 0.0025336, -0.38162, 0.00154776, 0.011014, -0.603621)
+
+[node name="Orbit1" type="MeshInstance3D" parent="Orbit3/PathFollow3D"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_vgegs")
+surface_material_override/0 = SubResource("ShaderMaterial_nesl7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Orbit3"]
+root_node = NodePath("../../Orbit2")
+libraries = {
+"": SubResource("AnimationLibrary_r7ebv")
+}
+autoplay = "RESET"
+
+[node name="Orbit4" type="Path3D" parent="."]
+transform = Transform3D(-1, -8.74228e-08, 0, 6.18172e-08, -0.707107, -0.707107, 6.18172e-08, -0.707107, 0.707107, 0, 0, 0)
+curve = SubResource("Curve3D_2oaku")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Orbit4"]
+transform = Transform3D(-0.381643, 0.00613612, -0.92425, 0, 0.999882, 0.00663895, 0.924305, 0.00253359, -0.38162, 0.00154776, 0.011014, -0.603621)
+
+[node name="Orbit1" type="MeshInstance3D" parent="Orbit4/PathFollow3D"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_vgegs")
+surface_material_override/0 = SubResource("ShaderMaterial_nesl7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Orbit4"]
+root_node = NodePath("../../Orbit2")
+libraries = {
+"": SubResource("AnimationLibrary_r7ebv")
+}
+autoplay = "RESET"

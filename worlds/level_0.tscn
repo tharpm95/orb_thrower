@@ -1,11 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://wnp7jbibapap"]
+[gd_scene load_steps=6 format=3 uid="uid://bu5egx2nxkegj"]
 
-[ext_resource type="Script" path="res://scripts/movement.gd" id="1_po0g2"]
-[ext_resource type="Script" path="res://scripts/camera_3d.gd" id="2_d2paj"]
-[ext_resource type="PackedScene" uid="uid://bjfkmwkicqyh8" path="res://scenes/rooms/library_central_hall.tscn" id="3_jj8qn"]
-[ext_resource type="Script" path="res://scripts/library_central_hall.gd" id="4_ooq3b"]
+[ext_resource type="Script" path="res://scripts/movement.gd" id="1_4hemm"]
+[ext_resource type="Script" path="res://scenes/rooms/beginning.gd" id="2_nbq5l"]
+[ext_resource type="Script" path="res://scripts/camera_3d.gd" id="2_xvjq7"]
+[ext_resource type="PackedScene" uid="uid://bmp6wvnaghplc" path="res://scenes/rooms/beginning.tscn" id="3_tkobg"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cba7o"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nitxp"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -14,15 +14,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.923918, 72.5941, 0.144855)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="Beginning" parent="." instance=ExtResource("3_tkobg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.34273, 0, -3.30932)
+script = ExtResource("2_nbq5l")
+
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.6646, -3.26286, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.45859, 2.21155, -7.80764)
 collision_layer = 3
 collision_mask = 3
-script = ExtResource("1_po0g2")
+script = ExtResource("1_4hemm")
 
 [node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
 transform = Transform3D(-0.0391377, 0, 0.999234, 0, 1, 0, -0.999234, 0, -0.0391377, 0.160954, 0, 0.26498)
-script = ExtResource("2_d2paj")
+script = ExtResource("2_xvjq7")
 
 [node name="HUD" type="Control" parent="CharacterBody3D"]
 layout_mode = 3
@@ -44,8 +48,4 @@ offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
-shape = SubResource("CapsuleShape3D_cba7o")
-
-[node name="LibraryCentralHall" parent="." instance=ExtResource("3_jj8qn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.53586, -5.38171, -0.870485)
-script = ExtResource("4_ooq3b")
+shape = SubResource("CapsuleShape3D_nitxp")
