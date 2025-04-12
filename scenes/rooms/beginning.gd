@@ -13,6 +13,10 @@ extends Node3D
 # Preload the new dialog scene
 @export var dialog_scene = preload("res://scenes/dialog/positron_01/positron_01.tscn")
 
+# Preload the portal scene
+@export var portal_scene = preload("res://scenes/effects/portal.tscn")
+@export var level_1_scene = "res://worlds/level_1.tscn"
+
 var spawn_chances: Dictionary = {
 	Vector3(-9, 2, -18): [{"being": "Fire Bra", "chance": 100}],
 	Vector3(5, 2, -19): [{"being": "Fire Bra", "chance": 100}],
@@ -23,6 +27,7 @@ var spawn_chances: Dictionary = {
 
 @onready var camera = get_node("/root/Node3D/CharacterBody3D/Camera3D")
 @onready var movement_node = get_node("/root/Node3D/CharacterBody3D")
+@onready var character = get_node("/root/Node3D/CharacterBody3D")
 var being_instances = []
 
 func _ready() -> void:
@@ -37,6 +42,9 @@ func _ready() -> void:
 
 	# Add the dialog instance
 	add_dialog_instance()
+	
+	# Spawn the portal
+	spawn_portal()
 
 func spawn_beings_with_chance() -> void:
 	for position in spawn_chances.keys():
@@ -86,14 +94,12 @@ func print_hierarchy(node: Node, level: int = 0) -> void:
 	for child in node.get_children():
 		print_hierarchy(child, level + 1)
 
-@onready var character = get_node("/root/Node3D/CharacterBody3D")
 @export var max_display_distance = 25.0
 
 func _process(_delta: float) -> void:
 	for being_instance in being_instances:
 		if is_instance_valid(camera) and is_instance_valid(being_instance):
 			var character_position = character.global_position
-			print(character_position)
 			var distance_to_character = character_position.distance_to(being_instance.global_position)
 
 			if distance_to_character < max_display_distance:
@@ -115,4 +121,20 @@ func _process(_delta: float) -> void:
 func add_dialog_instance() -> void:
 	var dialog_instance = dialog_scene.instantiate()
 	add_child(dialog_instance)
-	dialog_instance.set_global_position(character.global_position + Vector3(5, -.5, 5))  # Place 5 units away from the character
+	dialog_instance.set_global_position(character.global_position + Vector3(-5, -.5, 0))  # Place 5 units away from the character
+
+# Function to spawn the portal
+func spawn_portal() -> void:
+	var portal_instance = portal_scene.instantiate()
+	add_child(portal_instance)
+	
+	var portal_position = character.global_position + Vector3(5, -1.2, 0) # Place portal 5 units to the right of the character
+	portal_instance.global_position = portal_position
+
+	var portal_area: Area3D = portal_instance.get_node("Area3D")
+	if portal_area:
+		portal_area.connect("body_entered", Callable(self, "_on_portal_entered"))
+
+func _on_portal_entered(body: Node) -> void:
+	if body == character:
+		get_tree().change_scene(level_1_scene)
