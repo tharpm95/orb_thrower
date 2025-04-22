@@ -1,11 +1,22 @@
-[gd_scene load_steps=14 format=3 uid="uid://bmp6wvnaghplc"]
+[gd_scene load_steps=20 format=3 uid="uid://bmp6wvnaghplc"]
 
 [ext_resource type="ArrayMesh" uid="uid://ct6qlhpxh76os" path="res://assets/beginning/beginning_bottom.obj" id="1_i0t4c"]
+[ext_resource type="Texture2D" uid="uid://2sd1hn47831l" path="res://assets/beginning/001.png" id="1_uqn30"]
 [ext_resource type="ArrayMesh" uid="uid://caqwmbeqwm0es" path="res://assets/beginning/beginning_walls.obj" id="2_5lvvh"]
 [ext_resource type="ArrayMesh" uid="uid://bng0mwmhnccv6" path="res://assets/beginning/beginning_top.obj" id="3_136jy"]
+[ext_resource type="Texture2D" uid="uid://ehcsdwgbcds4" path="res://assets/beginning/002.png" id="3_ipyvx"]
+[ext_resource type="Texture2D" uid="uid://ciufus5bqs4cj" path="res://assets/beginning/003.png" id="5_hti0l"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wgeio"]
+albedo_texture = ExtResource("1_uqn30")
+uv1_scale = Vector3(20, 100, 1)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_5agon"]
 points = PackedVector3Array(11, 1, -8, 11, 0, -8, 11, 1, -68, -9, 1, -8, -9, 0, -8, 11, 0, -68, -9, 1, -68, -9, 0, -68)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4uhmi"]
+albedo_texture = ExtResource("3_ipyvx")
+uv1_scale = Vector3(10, 100, 0.1)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_svhat"]
 points = PackedVector3Array(-9.52119, 0.36881, -65.834, 1.065, 7.10548, -66.7966, 1.065, 7.10548, -68.7212, 1.065, 0.36881, -66.7966, -9.52119, 7.10548, -68.7212, -9.52119, 0.36881, -68.7212, -9.52119, 7.10548, -65.834, 1.065, 0.36881, -68.7212, -7.59586, 7.10548, -65.834, -7.59586, 0.36881, -65.834)
@@ -31,6 +42,10 @@ points = PackedVector3Array(11.6512, 7.10548, -10.016, 9.72662, 0.36881, -37.925
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_vjt15"]
 points = PackedVector3Array(1.065, 0.36881, -9.05319, 11.6512, 7.10548, -7.12937, 11.6512, 0.36881, -7.12937, 11.6512, 7.10548, -10.016, 1.065, 7.10548, -7.12937, 11.6512, 0.36881, -10.016, 1.065, 0.36881, -7.12937, 1.065, 7.10548, -9.05319, 9.72586, 7.10548, -10.016, 9.72586, 0.36881, -10.016)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2wf5q"]
+albedo_texture = ExtResource("5_hti0l")
+uv1_scale = Vector3(20, 100, 1)
+
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_idvue"]
 points = PackedVector3Array(11, 6.95, -8, 11, 5.95, -8, 11, 6.95, -68, -9, 6.95, -8, -9, 5.95, -8, 11, 5.95, -68, -9, 6.95, -68, -9, 5.95, -68)
 
@@ -38,6 +53,7 @@ points = PackedVector3Array(11, 6.95, -8, 11, 5.95, -8, 11, 6.95, -68, -9, 6.95,
 
 [node name="BeginningBottom" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19016, 0, 9.59487)
+material_override = SubResource("StandardMaterial3D_wgeio")
 mesh = ExtResource("1_i0t4c")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="BeginningBottom"]
@@ -47,6 +63,7 @@ shape = SubResource("ConvexPolygonShape3D_5agon")
 
 [node name="BeginningWalls" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19665, 0.0840406, 9.39349)
+material_override = SubResource("StandardMaterial3D_4uhmi")
 mesh = ExtResource("2_5lvvh")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="BeginningWalls"]
@@ -77,6 +94,7 @@ shape = SubResource("ConvexPolygonShape3D_vjt15")
 
 [node name="BeginningTop" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.29909, 0.708793, 9.49026)
+material_override = SubResource("StandardMaterial3D_2wf5q")
 mesh = ExtResource("3_136jy")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="BeginningTop"]

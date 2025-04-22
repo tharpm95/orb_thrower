@@ -82,7 +82,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 
 curve = SubResource("Curve3D_2oaku")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Orbit2"]
-transform = Transform3D(0.413531, -0.00807886, 0.910387, 0.0336824, 0.999266, -0.00642921, -0.909849, 0.0333208, 0.413537, -0.206801, -0.00939412, 0.500705)
+transform = Transform3D(0.413531, -0.00807886, 0.910387, 0.0336824, 0.999266, -0.00642921, -0.909849, 0.0333208, 0.413537, -0.206797, -0.00939415, 0.500707)
 progress = 2.07651
 
 [node name="Orbit1" type="MeshInstance3D" parent="Orbit2/PathFollow3D"]
@@ -102,7 +102,7 @@ transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 
 curve = SubResource("Curve3D_2oaku")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Orbit3"]
-transform = Transform3D(0.333856, -0.0041787, -0.942569, -0.00101295, 0.999893, -0.00479202, 0.942613, 0.00255453, 0.333836, -0.207863, 0.00991456, -0.526949)
+transform = Transform3D(0.333857, -0.0041787, -0.942569, -0.00101295, 0.999893, -0.00479202, 0.942613, 0.00255453, 0.333836, -0.207868, 0.00991454, -0.526947)
 progress = 3.45483
 
 [node name="Orbit1" type="MeshInstance3D" parent="Orbit3/PathFollow3D"]
@@ -121,7 +121,7 @@ transform = Transform3D(-1, -8.74228e-08, 0, 6.18172e-08, -0.707107, -0.707107, 
 curve = SubResource("Curve3D_2oaku")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Orbit4"]
-transform = Transform3D(-0.705283, 0.0113495, 0.708694, 0.0292644, 0.999331, 0.0131161, -0.708211, 0.0299914, -0.705222, 0.422741, -0.00763156, 0.42634)
+transform = Transform3D(-0.705314, 0.01135, 0.708664, 0.0292638, 0.999331, 0.0131166, -0.708181, 0.0299909, -0.705252, 0.422744, -0.00763154, 0.426339)
 progress = 1.39982
 
 [node name="Orbit1" type="MeshInstance3D" parent="Orbit4/PathFollow3D"]
