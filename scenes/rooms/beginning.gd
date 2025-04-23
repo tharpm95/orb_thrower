@@ -4,6 +4,9 @@ extends Node3D
 @export var frequency = 1.0
 @export var spawn_delay = 0.023
 
+# Define the spawn point position
+@export var spawn_position: Vector3 = Vector3(0, 2, 0)
+
 # Preload the being scenes, which now include their own UI elements
 @export var being_scenes: Dictionary = {
 	"Fire Bra": preload("res://scenes/beings/fire_bra.tscn"),
@@ -15,7 +18,6 @@ extends Node3D
 
 # Preload the portal scene
 @export var portal_scene = preload("res://scenes/effects/portal.tscn")
-@export var level_1_scene = "res://worlds/level_1.tscn"
 
 var spawn_chances: Dictionary = {
 	Vector3(-9, 2, -18): [{"being": "Fire Bra", "chance": 100}],
@@ -30,6 +32,14 @@ var spawn_chances: Dictionary = {
 @onready var character = get_node("/root/Node3D/CharacterBody3D")
 var being_instances = []
 
+# References to the two portals
+var portal_1: Node = null
+var portal_2: Node = null
+
+# Flags for ensuring player must exit portal zone before re-teleporting
+var can_teleport_from_portal_1 = true
+var can_teleport_from_portal_2 = true
+
 func _ready() -> void:
 	randomize()
 	print("Spawning beings")
@@ -43,8 +53,11 @@ func _ready() -> void:
 	# Add the dialog instance
 	add_dialog_instance()
 	
-	# Spawn the portal
-	spawn_portal()
+	# Spawn the portal pair
+	spawn_portal_pair()
+
+	# Start timer to print character's position
+	start_position_timer()
 
 func spawn_beings_with_chance() -> void:
 	for position in spawn_chances.keys():
@@ -123,18 +136,65 @@ func add_dialog_instance() -> void:
 	add_child(dialog_instance)
 	dialog_instance.set_global_position(character.global_position + Vector3(-5, -.5, 0))  # Place 5 units away from the character
 
-# Function to spawn the portal
-func spawn_portal() -> void:
-	var portal_instance = portal_scene.instantiate()
-	add_child(portal_instance)
-	
-	var portal_position = character.global_position + Vector3(5, -1.2, 0) # Place portal 5 units to the right of the character
-	portal_instance.global_position = portal_position
+# Function to spawn a pair of portals
+func spawn_portal_pair() -> void:
+	# Spawn the first portal
+	portal_1 = portal_scene.instantiate()
+	add_child(portal_1)
+	var portal_1_position = character.global_position + Vector3(5, -1.2, 0)  # Place first portal 5 units to the right of the character
+	portal_1.global_position = portal_1_position
 
-	var portal_area: Area3D = portal_instance.get_node("Area3D")
-	if portal_area:
-		portal_area.connect("body_entered", Callable(self, "_on_portal_entered"))
+	# Setup the second portal
+	portal_2 = portal_scene.instantiate()
+	add_child(portal_2)
+	var portal_2_position = Vector3(-6.347576, 1, -56.83677)  # Place second portal at the specified fixed position
+	portal_2.global_position = portal_2_position
 
-func _on_portal_entered(body: Node) -> void:
+	_connect_portal_signals()
+
+# Function to connect portal signals
+func _connect_portal_signals() -> void:
+	var portal_area_1: Area3D = portal_1.get_node("Area3D")
+	if portal_area_1:
+		portal_area_1.connect("body_entered", Callable(self, "_on_portal_1_entered"))
+		portal_area_1.connect("body_exited", Callable(self, "_on_portal_1_exited"))
+
+	var portal_area_2: Area3D = portal_2.get_node("Area3D")
+	if portal_area_2:
+		portal_area_2.connect("body_entered", Callable(self, "_on_portal_2_entered"))
+		portal_area_2.connect("body_exited", Callable(self, "_on_portal_2_exited"))
+
+func _on_portal_1_entered(body: Node) -> void:
+	if body == character and can_teleport_from_portal_1:
+		# Teleport the character to the second portal's position
+		character.global_position = portal_2.global_position
+		can_teleport_from_portal_1 = false
+		can_teleport_from_portal_2 = false # Lock teleport from portal 2 until player exits
+
+func _on_portal_1_exited(body: Node) -> void:
 	if body == character:
-		get_tree().change_scene(level_1_scene)
+		can_teleport_from_portal_1 = true
+
+func _on_portal_2_entered(body: Node) -> void:
+	if body == character and can_teleport_from_portal_2:
+		# Teleport the character to the first portal's position
+		character.global_position = portal_1.global_position
+		can_teleport_from_portal_2 = false
+		can_teleport_from_portal_1 = false # Lock teleport from portal 1 until player exits
+
+func _on_portal_2_exited(body: Node) -> void:
+	if body == character:
+		can_teleport_from_portal_2 = true
+
+# Function to start the timer for printing character position
+func start_position_timer() -> void:
+	var position_timer = Timer.new()
+	position_timer.wait_time = 3.0  # Every 3 seconds
+	position_timer.autostart = true
+	position_timer.connect("timeout", Callable(self, "_print_character_position"))
+	add_child(position_timer)
+
+# Function to print the character's current global position
+func _print_character_position() -> void:
+	var position = character.global_position
+	print("Character global position: ", position)
