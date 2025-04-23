@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dq1d8jtxq76hf"]
+
+[ext_resource type="Texture2D" uid="uid://rfuu5epar7fh" path="res://assets/ceiling_lamp/01.png" id="1_dw1ev"]
+[ext_resource type="ArrayMesh" uid="uid://2dj2bj6v3llr" path="res://assets/ceiling_lamp/ceiling_lamp.obj" id="2_7f6x0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6mgxm"]
+albedo_texture = ExtResource("1_dw1ev")
+uv1_scale = Vector3(6, 1, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CeilingLamp" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0640057, 0, 0.348146)
+material_override = SubResource("StandardMaterial3D_6mgxm")
+mesh = ExtResource("2_7f6x0")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="CeilingLamp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+light_color = Color(1, 0.6975, 0.45, 1)
+omni_range = 6.871

@@ -9,9 +9,6 @@
 
 [node name="Node3D" type="Node3D"]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.923918, 72.5941, 0.144855)
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Beginning" parent="." instance=ExtResource("3_tkobg")]

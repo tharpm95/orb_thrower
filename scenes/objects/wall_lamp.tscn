@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6el61k5xvf8c"]
+
+[ext_resource type="PackedScene" uid="uid://wivo7ae6qo4d" path="res://assets/wall_lamp/wall_lamp.glb" id="1_861bb"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="wall_lamp" parent="." instance=ExtResource("1_861bb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01714, 0, 0.0511644)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="wall_lamp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.03906, -0.354923, -0.0591257)
+light_color = Color(1, 0.6645, 0.39, 1)
+light_energy = 1.68
+light_indirect_energy = 1.427
+light_volumetric_fog_energy = 5.914
+light_size = 0.109
+light_specular = 1.399
+omni_range = 8.88
