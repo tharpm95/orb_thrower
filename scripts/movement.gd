@@ -150,8 +150,8 @@ func trigger_info_particles(being_instance):
 	particles_timer.timeout.connect(func():
 		info_particles_instance.queue_free())
 	
-	var dialog = Dialogic.start("res://scenes/dialog/positron_01/timeline.dtl")
-	add_child(dialog)
+	#var dialog = Dialogic.start("res://scenes/dialog/positron_01/timeline.dtl")
+	#add_child(dialog)
 	
 	being_instance.queue_free()
 

@@ -107,7 +107,7 @@ func print_hierarchy(node: Node, level: int = 0) -> void:
 	for child in node.get_children():
 		print_hierarchy(child, level + 1)
 
-@export var max_display_distance = 25.0
+@export var max_display_distance = 15.0
 
 func _process(_delta: float) -> void:
 	for being_instance in being_instances:
@@ -115,6 +115,7 @@ func _process(_delta: float) -> void:
 			var character_position = character.global_position
 			var distance_to_character = character_position.distance_to(being_instance.global_position)
 
+			# Assume this code is inside a function or method
 			if distance_to_character < max_display_distance:
 				if being_instance.has_node("StaticBody3D/Control"):
 					var control_node = being_instance.get_node("StaticBody3D/Control")
@@ -129,6 +130,13 @@ func _process(_delta: float) -> void:
 						printraw("Node is not a Control instance.")
 				else:
 					printraw("Control node path not found in being_instance.")
+			else:
+				# Check if the node exists before attempting to access it
+				if being_instance.has_node("StaticBody3D/Control"):
+					var control_node = being_instance.get_node("StaticBody3D/Control")
+					control_node.visible = false
+				else:
+					printraw("Control node path not found in being_instance when setting visibility to false.")
 
 # Function to add the dialog instance
 func add_dialog_instance() -> void:
