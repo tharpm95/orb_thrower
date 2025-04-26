@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="orb_thrower"
-run/main_scene="res://worlds/level_0.tscn"
+run/main_scene="res://areas/area_00.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
