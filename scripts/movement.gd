@@ -12,6 +12,7 @@ const PARTICLES_LIFETIME = 0.5
 @onready var camera = $Camera3D
 @onready var charge_bar = $HUD/ChargeProgressBar
 @onready var qubits_label = $HUD/QubitsLabel
+@onready var panel = $"/root/Node3D/Control/Panel"
 
 var start_position: Vector3
 var log_timer: float = 0.0
@@ -30,6 +31,7 @@ func _ready():
 	start_position = global_transform.origin
 	charge_bar.visible = true
 	charge_bar.value = 100.0
+	panel.visible = false  # Initially invisible
 
 	var style_bg = StyleBoxFlat.new()
 	style_bg.bg_color = Color(0, 0, 0, 0.5)
@@ -78,6 +80,9 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _process(delta: float):
+	if Input.is_action_just_pressed("E"):
+		panel.visible = not panel.visible  # Toggles visibility
+
 	if Input.is_action_pressed("LM"):
 		charge_time += delta
 		charge_bar.visible = true
@@ -149,9 +154,6 @@ func trigger_info_particles(being_instance):
 
 	particles_timer.timeout.connect(func():
 		info_particles_instance.queue_free())
-	
-	#var dialog = Dialogic.start("res://scenes/dialog/positron_01/timeline.dtl")
-	#add_child(dialog)
 	
 	being_instance.queue_free()
 

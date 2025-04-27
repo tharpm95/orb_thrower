@@ -1,19 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://bpykxywkmkurr"]
+[gd_scene load_steps=7 format=3 uid="uid://bpykxywkmkurr"]
 
 [ext_resource type="Script" path="res://scripts/movement.gd" id="1_4hemm"]
-[ext_resource type="Script" path="res://scenes/rooms/beginning.gd" id="2_nbq5l"]
+[ext_resource type="Script" path="res://scripts/areas/area_00.gd" id="2_iotlm"]
 [ext_resource type="Script" path="res://scripts/camera_3d.gd" id="2_xvjq7"]
-[ext_resource type="PackedScene" uid="uid://bmp6wvnaghplc" path="res://scenes/rooms/beginning.tscn" id="3_tkobg"]
+[ext_resource type="PackedScene" uid="uid://bmp6wvnaghplc" path="res://scenes/rooms/area_00_room.tscn" id="3_tkobg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nitxp"]
 
-[node name="Node3D" type="Node3D"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vb32h"]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Node3D" type="Node3D"]
 
 [node name="Beginning" parent="." instance=ExtResource("3_tkobg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.34273, 0, -3.30932)
-script = ExtResource("2_nbq5l")
+script = ExtResource("2_iotlm")
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.45859, 2.21155, -7.80764)
@@ -46,3 +46,32 @@ offset_bottom = 23.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
 shape = SubResource("CapsuleShape3D_nitxp")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Panel" type="Panel" parent="Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1880.0
+offset_bottom = 1040.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vb32h")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Test value"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]

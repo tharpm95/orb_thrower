@@ -14,7 +14,7 @@ extends Node3D
 @export var dialog_scene = preload("res://scenes/dialog/positron_01/positron_01.tscn")
 @export var portal_scene = preload("res://scenes/effects/portal.tscn")
 @export var portal_green_scene = preload("res://scenes/effects/portal_green.tscn")
-@export var area_scene = preload("res://areas/area_01.tscn")
+@export var area_scene = preload("res://scenes/areas/area_01.tscn")
 
 var spawn_chances: Dictionary = {
 	Vector3(-9, 2, -18): [{"being": "Fire Bra", "chance": 100}],
@@ -192,7 +192,7 @@ func _on_portal_2_exited(body: Node) -> void:
 func _on_green_portal_entered(body: Node) -> void:
 	if body == character:
 		# Use the scene path directly for changing the scene
-		get_tree().change_scene_to_file("res://areas/area_01.tscn")
+		get_tree().change_scene_to_file("res://scenes/areas/area_01.tscn")
 
 func start_position_timer() -> void:
 	var position_timer = Timer.new()
