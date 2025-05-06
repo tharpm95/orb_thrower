@@ -1,0 +1,189 @@
+[gd_scene load_steps=12 format=4 uid="uid://gxamndbn6as8"]
+
+[ext_resource type="Texture2D" uid="uid://bf2tc0wqv4ic1" path="res://assets/beings/enemy_01_enemy_01.png" id="1_ttihh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_735qk"]
+resource_name = "Material.001"
+cull_mode = 2
+albedo_texture = ExtResource("1_ttihh")
+roughness = 0.5
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_tphw8"]
+_surfaces = [{
+"aabb": AABB(-1, -1, -0.985786, 2, 1.98579, 1.98579),
+"format": 34896613377,
+"index_count": 24,
+"index_data": PackedByteArray("BQADAAAAAgAEAAEAAwABAAAAAwACAAEAAQAFAAAAAQAEAAUAAwAEAAIAAwAFAAQA"),
+"name": "Material.001",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 6,
+"vertex_data": PackedByteArray("AAAAAP//AAD//wAA//8AAP///////wAAAAD/////AAD//wAAAAAAAAAAAAAAAAAA")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_l1k2t"]
+resource_name = "enemy_01_Cube_001"
+_surfaces = [{
+"aabb": AABB(-1, -1, -0.985786, 2, 1.98579, 1.98579),
+"attribute_data": PackedByteArray("/18AAP8f/z//X////1//P/9f/z//X/8/ip//P5eK/z+Kn/8/ip8AAJeKAACKn///O2z/P/9fi3//X4t/O2wAAP8fi3//X3PA"),
+"format": 34896613399,
+"index_count": 24,
+"index_data": PackedByteArray("EQALAAIACAAOAAUACQADAAAACQAGAAMABAAQAAEABAANABAACgAMAAcACgAPAAwA"),
+"material": SubResource("StandardMaterial3D_735qk"),
+"name": "Material.001",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 18,
+"vertex_data": PackedByteArray("AAAAAP///78AAAAA////vwAAAAD//1TV//8AAP///7///wAA////v///AAD//1TV/////////7////////9UFv///////1TVAAD//////78AAP////9UFgAA/////1TV//8AAAAAVBb//wAAAAD/v///AAAAAFTVAAAAAAAAVBYAAAAAAAD/vwAAAAAAAFTV/////wAA/39U1VTV/////wAA/3+qKqoq/////wS1BLWqKqoq/////wS1BLVU1VTVBLUEtQAA/3+qKqoqBLUEtQAA/39U1VTV")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_tphw8")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_77qiq"]
+resource_name = "Material.002"
+cull_mode = 2
+albedo_texture = ExtResource("1_ttihh")
+roughness = 0.5
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_bm2sr"]
+_surfaces = [{
+"aabb": AABB(-1, -1, -0.985786, 2, 1.98579, 1.98579),
+"format": 34896613377,
+"index_count": 24,
+"index_data": PackedByteArray("BQADAAAAAgAEAAEAAwABAAAAAwACAAEAAQAFAAAAAQAEAAUAAwAEAAIAAwAFAAQA"),
+"name": "Material.002",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 6,
+"vertex_data": PackedByteArray("AAAAAP//AAD//wAA//8AAP///////wAAAAD/////AAD//wAAAAAAAAAAAAAAAAAA")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_0svlv"]
+resource_name = "enemy_01_Cube_003"
+_surfaces = [{
+"aabb": AABB(-1, -1, -0.985786, 2, 1.98579, 1.98579),
+"attribute_data": PackedByteArray("/18AAP8f/z//X////1//P/9f/z//X/8/ip//P5eK/z+Kn/8/ip8AAJeKAACKn///O2z/P/9fi3//X4t/O2wAAP8fi3//X3PA"),
+"format": 34896613399,
+"index_count": 24,
+"index_data": PackedByteArray("EQALAAIACAAOAAUACQADAAAACQAGAAMABAAQAAEABAANABAACgAMAAcACgAPAAwA"),
+"material": SubResource("StandardMaterial3D_77qiq"),
+"name": "Material.002",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 18,
+"vertex_data": PackedByteArray("AAAAAP///78AAAAA////vwAAAAD//1TV//8AAP///7///wAA////v///AAD//1TV/////////7////////9UFv///////1TVAAD//////78AAP////9UFgAA/////1TV//8AAAAAVBb//wAAAAD/v///AAAAAFTVAAAAAAAAVBYAAAAAAAD/vwAAAAAAAFTV/////wAA/39U1VTV/////wAA/3+qKqoq/////wS1BLWqKqoq/////wS1BLVU1VTVBLUEtQAA/3+qKqoqBLUEtQAA/39U1VTV")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_bm2sr")
+
+[sub_resource type="Animation" id="Animation_4iwvy"]
+resource_name = "CubeAction"
+length = 0.416667
+loop_mode = 1
+tracks/0/type = "position_3d"
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cube")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 1.225, 0, 0.2, 1, 0, 1.177, 0, 0.4, 1, 0, 1.21, 0)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = true
+tracks/1/enabled = true
+tracks/1/path = NodePath("Cube")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.866025, 0, 0, 0.5, 0.2, 1, -0.922834, 0, 0, 0.385198, 0.4, 1, -0.868735, 0, 0, 0.495277, 0.416667, 1, -0.866025, 0, 0, 0.5)
+tracks/2/type = "position_3d"
+tracks/2/imported = true
+tracks/2/enabled = true
+tracks/2/path = NodePath("Cube_001")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0, 0.845, -0.02, 0.2, 1, 0, 1.22, 0)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = true
+tracks/3/enabled = true
+tracks/3/path = NodePath("Cube_001")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 0.267238, 0, 0, 0.96363, 0.2, 1, 0.386711, 0, 0, 0.922201)
+
+[sub_resource type="Animation" id="Animation_3lduy"]
+resource_name = "Cube_001Action"
+length = 0.416667
+tracks/0/type = "position_3d"
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cube_001")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0.94, 0, 0.0333333, 1, 0, 0.965792, 0, 0.0666667, 1, 0, 1.01837, 0, 0.1, 1, 0, 1.08582, 0, 0.133333, 1, 0, 1.15626, 0, 0.166667, 1, 0, 1.21776, 0, 0.2, 1, 0, 1.24355, 0, 0.233333, 1, 0, 1.22878, 0, 0.266667, 1, 0, 1.18091, 0, 0.3, 1, 0, 1.11019, 0, 0.333333, 1, 0, 1.02968, 0, 0.366667, 1, 0, 0.962224, 0, 0.4, 1, 0, 0.924144, 0, 0.416667, 1, 0, 0.91, 0)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = true
+tracks/1/enabled = true
+tracks/1/path = NodePath("Cube_001")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.267238, 0, 0, 0.96363, 0.0333333, 1, 0.276322, 0, 0, 0.961065, 0.0666667, 1, 0.294761, 0, 0, 0.955571, 0.1, 1, 0.318258, 0, 0, 0.948004, 0.133333, 1, 0.342584, 0, 0, 0.939487, 0.166667, 1, 0.363642, 0, 0, 0.931539, 0.2, 1, 0.372418, 0, 0, 0.928065, 0.233333, 1, 0.368034, 0, 0, 0.929812, 0.266667, 1, 0.353135, 0, 0, 0.935572, 0.3, 1, 0.330962, 0, 0, 0.943644, 0.333333, 1, 0.305496, 0, 0, 0.952193, 0.366667, 1, 0.283989, 0, 0, 0.958828, 0.4, 1, 0.271783, 0, 0, 0.962359, 0.416667, 1, 0.267238, 0, 0, 0.96363)
+tracks/2/type = "position_3d"
+tracks/2/imported = true
+tracks/2/enabled = true
+tracks/2/path = NodePath("Cube")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0, 1.58, 0)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = true
+tracks/3/enabled = true
+tracks/3/path = NodePath("Cube")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 0.866025, 0, 0, -0.5)
+
+[sub_resource type="Animation" id="Animation_kknun"]
+length = 0.001
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cube_001")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.386711, 0, 0, 0.922201)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Cube")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 1.21, 0)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vgkyi"]
+_data = {
+"CubeAction": SubResource("Animation_4iwvy"),
+"Cube_001Action": SubResource("Animation_3lduy"),
+"RESET": SubResource("Animation_kknun")
+}
+
+[node name="Node3D" type="Node3D"]
+
+[node name="enemy_01" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.213408, 0, 0.49664)
+
+[node name="Cube" type="MeshInstance3D" parent="enemy_01"]
+transform = Transform3D(0.5, 0, 0, 0, -0.335915, 0.370353, 0, -0.370353, -0.335915, 0, 1.21, 0)
+mesh = SubResource("ArrayMesh_l1k2t")
+skeleton = NodePath("")
+
+[node name="Cube_001" type="MeshInstance3D" parent="enemy_01"]
+transform = Transform3D(0.5, 0, 0, 0, 0.350455, -0.356625, 0, 0.356625, 0.350455, 0, 1.1567, -0.00337622)
+mesh = SubResource("ArrayMesh_0svlv")
+skeleton = NodePath("")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="enemy_01"]
+libraries = {
+"": SubResource("AnimationLibrary_vgkyi")
+}
+autoplay = "CubeAction"

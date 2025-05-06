@@ -8,7 +8,7 @@ extends Node3D
 
 @export var being_scenes: Dictionary = {
 	"Fire Bra": preload("res://scenes/beings/fire_bra.tscn"),
-	"Water Ket": preload("res://scenes/beings/water_ket.tscn")
+	"Water Ket": preload("res://scenes/beings/vapor_braket.tscn")
 }
 
 @export var dialog_scene = preload("res://scenes/dialog/positron_01/positron_01.tscn")
